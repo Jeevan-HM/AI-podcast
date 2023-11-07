@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Add Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+
+    <!-- Add CSS styles -->
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            background-image: url("{{ url_for('static', filename='images/2.jpg') }}");
+            background-size: cover;
+            background-repeat: no-repeat;
+            text-align: center;
+            margin: 40px;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 900px; /* Adjust the maximum width to your preference */
+            margin: 0 auto;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            color: #007BFF; /* Change header color to blue */
+            background-color: transparent; /* Remove background color */
+            font-weight: bold;
+            padding: 10px;
+            margin: 0;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+        }
+
+        label {
+            font-weight: bold;
+            color: #470;
+            margin-bottom: 15px;
+            
+            
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="file"],
+        textarea {
+            width: 97%;
+            padding: 10px;
+            border: 4px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        textarea {
+            resize: horizen;
+        }
+
+        .note {
+            color: #ff0000;
+            font-size: 14px;
+            text-align: left;
+            background-color: #fff;
+            padding: 5px;
+            border-radius: 5px;
+            margin: 5px 0;
+        }
+
+        .submit-button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .option-buttons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .option-buttons input[type="radio"] {
+            margin-right: 10px;
+            
+        }
+
+        .option-buttons label {
+            color: #333;
+            cursor: pointer;
+            font-size: 25px;
+        }
+
+        .speaker-name {
+            text-align: left;
+            font-weight: bold;
+            font-size: 25px;
+            margin-bottom: 15px;
+        }
+
+        .option-buttons .default-url {
+            font-weight: bold;
+            color: #333;
+            cursor: pointer;
+            font-size: 25px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Podcast</h1>
+        <div class="form-container">
+            <form method="POST" enctype="multipart/form-data">
+    
+
+    
+            <div class="form-group">
+                <label for="speaker_one_text" class="speaker-name">Name of Speaker One:</label>
+                <input type="text" id="speaker_one_text" name="speaker_one_text" required>
+            </div>
+
+            <div class="form-group">
+                <label for="speaker_two_text" class="speaker-name">Name of Speaker Two:</label>
+                <input type="text" id="speaker_two_text" name="speaker_two_text" required>
+            </div>
+
+            <div class="form-group">
+                <label for="topic" class="speaker-name">Topic of podcast:</label>
+                <input type="text" id="topic" name="topic" required>
+            </div>
+
+            <div class="form-group">
+                <label for="num_turns" class="speaker-name">Number of Turns:</label>
+                <input type="number" id="num_turns" name="num_turns" required min="1" max="18">
+                <p class="note">Note: For more than 12 turns, consider switching to GPT-4-32k.</p>
+            </div>
+
+            <div class="form-group">
+                <label class="speaker-name">Choose how to provide Speaker One:</label>
+                <div class="option-buttons">
+                    <input type="radio" id="speaker_one_option_id" name="speaker_one_option" value="id" onclick="toggleInputFields('id', 'speaker_one');" checked>
+                    <label for="speaker_one_option_id">ID</label>
+                    <input type="radio" id="speaker_one_option_url" name="speaker_one_option" value="url" onclick="toggleInputFields('url', 'speaker_one');">
+                    <label for="speaker_one_option_url" class="default-url">URL</label>
+                </div>
+            </div>
+
+            <div class="form-group speaker_one-id-field">
+                <label for="speaker_one_id" class="speaker-name">Speaker One Voice ID:</label>
+                <input type="text" id="speaker_one_id" name="speaker_one_id">
+            </div>
+
+            <div class="form-group speaker_one-url-field" style="display: none;">
+                <label for="speaker_one_url" class="speaker-name">Speaker One Clip URL:</label>
+                <input type="text" id="speaker_one_url" name="speaker_one_url">
+            </div>
+
+            <div class="form-group">
+                <label class="speaker-name">Choose how to provide Speaker Two:</label>
+                <div class="option-buttons">
+                    <input type="radio" id="speaker_two_option_id" name="speaker_two_option" value="id" onclick="toggleInputFields('id', 'speaker_two');" checked>
+                    <label for="speaker_two_option_id">ID</label>
+                    <input type="radio" id="speaker_two_option_url" name="speaker_two_option" value="url" onclick="toggleInputFields('url', 'speaker_two');">
+                    <label for="speaker_two_option_url" class="default-url">URL</label>
+                </div>
+            </div>
+
+            <div class="form-group speaker_two-id-field">
+                <label for="speaker_two_id" class="speaker-name">Speaker Two Voice ID:</label>
+                <input type="text" id="speaker_two_id" name="speaker_two_id">
+            </div>
+
+            <div class="form-group speaker_two-url-field" style="display: none;">
+                <label for="speaker_two_url" class="speaker-name">Speaker Two Clip URL:</label>
+                <input type="text" id="speaker_two_url" name="speaker_two_url">
+            </div>
+
+            <div class="form-group">
+                <label for="speaker_one_voice_description" class="speaker-name">Speaker One Voice Description:</label>
+                <textarea id="speaker_one_voice_description" name="speaker_one_voice_description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="speaker_two_voice_description" class="speaker-name">Speaker Two Voice Description:</label>
+                <textarea id="speaker_two_voice_description" name="speaker_two_voice_description" required></textarea>
+            </div>
+
+            <div class="submit-button">
+                <button type="submit">Generate</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function toggleInputFields(option, speaker) {
+            const idFields = document.querySelectorAll(`.${speaker}-id-field`);
+            const urlFields = document.querySelectorAll(`.${speaker}-url-field`);
+
+            if (option === 'id') {
+                idFields.forEach(field => field.style.display = 'block');
+                urlFields.forEach(field => field.style.display = 'none');
+            } else if (option === 'url') {
+                idFields.forEach(field => field.style.display = 'none');
+                urlFields.forEach(field => field.style.display = 'block');
+            }
+        }
+    </script>
+</body>
+</html>

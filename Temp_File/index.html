@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Podcast</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007BFF;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="number"],
+        .form-group input[type="file"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+        }
+
+        .upload-section {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .upload-section label {
+            width: 48%;
+            background-color: #007BFF;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Remove display: none; to make URL text input fields visible */
+        .upload-section input[type="text"],
+        .upload-section input[type="file"] {
+            width: 100%;
+            /* display: none; Remove this line to make them visible */
+        }
+
+        .note {
+            color: #ff0000;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .submit-button {
+            display: flex;
+            justify-content: center;
+        }
+
+        .submit-button button {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI Podcast</h1>
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="speaker_one_text">Name of Speaker One:</label>
+                <input type="text" id="speaker_one_text" name="speaker_one_text" required>
+            </div>
+
+            <div class="form-group">
+                <label for="speaker_two_text">Name of Speaker Two:</label>
+                <input type="text" id="speaker_two_text" name="speaker_two_text" required>
+            </div>
+
+            <div class="form-group">
+                <label for="topic">Topic of podcast:</label>
+                <input type="text" id="topic" name="topic" required>
+            </div>
+
+            <div class="form-group">
+                <label for="num_turns">Number of Turns:</label>
+                <input type="number" id="num_turns" name="num_turns" required>
+                <p class="note">Note: For more than 12 turns, consider switching to GPT-4-32k.</p>
+            </div>
+
+            <div class="form-group">
+                <div class="upload-section">
+                    <label for="speaker_one_url">Speaker One Clip URL:</label>
+                    <input type="text" id="speaker_one_url" name="speaker_one_url">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="upload-section">
+                    <label for="speaker_two_url">Speaker Two Clip URL:</label>
+                    <input type="text" id="speaker_two_url" name="speaker_two_url">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="speaker_one_voice_description">Speaker One Voice Description:</label>
+                <textarea id="speaker_one_voice_description" name="speaker_one_voice_description" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="speaker_two_voice_description">Speaker Two Voice Description:</label>
+                <textarea id="speaker_two_voice_description" name="speaker_two_voice_description" required></textarea>
+            </div>
+
+            <div class="submit-button">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
