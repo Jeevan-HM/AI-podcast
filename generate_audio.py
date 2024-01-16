@@ -7,11 +7,11 @@ import os
 # from pytube import YouTube
 from moviepy.editor import *
 import requests
-from api_key import api_openai_key, eleven_labs_api
+from api_key import os.getenv("api_openai_key"), os.getenv("eleven_labs_api")
 
 
-eleven_labs_api_key = eleven_labs_api
-openai.api_key = api_openai_key
+eleven_labs_api_key = os.getenv("eleven_labs_api")
+openai.api_key = os.getenv("api_openai_key")
 
 
 def generate_podcast(name1, name2, name1_voice, name2_voice, topic, num_turns):
